@@ -13,7 +13,7 @@ from flask import Flask, render_template
 @app.route('/')
 def my_form():
     return render_template('index.html')
-app = Flask(__name__,template_folder='templates')
+app = Flask(__name__,template_folder='template')
 
 def roberta_model ():
    task='sentiment'
