@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <body>
+
+    <link rel='stylesheet' href='bootstrap.min.css'></style>
+    <link rel='stylesheet' href='font-awesome.min.css'></style>
+
+  <div class="container">
+    <div class = "centered">
+    <header class="text-center text-white">
+    <title> sentiment analysis app </title>
+
+<h1 class = 'header'>
+  Sentiment Analysis App
+</h1>
+
+<p class = 'desc'>
+  Type a sentence, click on the submit button and wait for your prediction.
+</p>
+
+<form method="POST" onSubmit = 'return validate();' class='form' >
+    <input name="text">
+    <input type="submit" onclick = 'this.form.submit();'>
+</form>
+
+<br>
+<br>
+
+<p id='demo'>{{ variable }} </p> 
+
+</header>
+</div>
+</div>
+
+</body>
+
+<script>
+
+
+
+
+
+</script>
+
+<style>
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.header {
+  color: black
+}
+
+p { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; margin: 0 0 24px; text-justify: inter-word; }
+
+h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 36px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+
+#demo {
+  color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 22px; line-height: 24px; margin: 0 0 24px; text-justify: inter-word;
+}
+
+input[type=submit] {
+  background-color: #f06237; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95em;
+}
+
+input[type=submit]:hover {
+  background-color: #b0540e;
+}
+
+</style>
