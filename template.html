@@ -1,81 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
 
-    <link rel='stylesheet' href='bootstrap.min.css'></style>
-    <link rel='stylesheet' href='font-awesome.min.css'></style>
+        .container {
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
 
-  <div class="container">
-    <div class = "centered">
-    <header class="text-center text-white">
-    <title> sentiment analysis app </title>
+        h1 {
+            margin-bottom: 20px;
+        }
 
-<h1 class = 'header'>
-  Sentiment Analysis App
-</h1>
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
 
-<p class = 'desc'>
-  Type a sentence, click on the submit button and wait for your prediction.
-</p>
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
 
-<form method="POST" onSubmit = 'return validate();' class='form' >
-    <input name="text">
-    <input type="submit" onclick = 'this.form.submit();'>
-</form>
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-<br>
-<br>
-
-<p id='demo'>{{ variable }} </p> 
-
-</header>
-</div>
-</div>
-
+        .emoticon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function submitForm(e) {
+            e.preventDefault();
+            const text = document.getElementById("text").value;
+            fetch("/", {
+                method: "POST",
+                body: new FormData(e.target),
+                headers: {
+                    "Accept": "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.querySelector(".result").innerHTML = data.label;
+                document.querySelector(".score").innerHTML = `Score: ${data.score}%`;
+                let emoticon;
+                if (data.label === 'This sentence is positive') {
+                    emoticon = '😊';
+                } else if (data.label === 'This sentence is neutral') {
+                    emoticon = '😐';
+                } else {
+                    emoticon = '😞';
+                }
+                document.querySelector(".emoticon").innerHTML = emoticon;
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis</h1>
+        <form onsubmit="submitForm(event)">
+            <input type="text" name="text" id="text" placeholder="Enter a sentence" required>
+            <button type="submit">Analyze</button>
+        </form>
+        <div class="emoticon"></div>
+        <div class="result">{{ variable }}</div>
+        <div class="score"></div>
+    </div>
 </body>
-
-<script>
-
-
-
-
-
-</script>
-
-<style>
-
-.container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-.header {
-  color: black
-}
-
-p { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; margin: 0 0 24px; text-justify: inter-word; }
-
-h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 36px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
-
-#demo {
-  color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 22px; line-height: 24px; margin: 0 0 24px; text-justify: inter-word;
-}
-
-input[type=submit] {
-  background-color: #f06237; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 0.95em;
-}
-
-input[type=submit]:hover {
-  background-color: #b0540e;
-}
-
-</style>
+</html>
