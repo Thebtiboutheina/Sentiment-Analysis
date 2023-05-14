@@ -9,7 +9,7 @@ sentiment_analysis_pipeline = pipeline('sentiment-analysis', model='roberta-base
 
 @app.route('/')
 def my_form():
-    return render_template('index.html')
+    return render_template('template.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def my_form_post():
